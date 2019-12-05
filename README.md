@@ -1,6 +1,6 @@
 # DevOps Survival Camp: Winter 2020
 
-<img src="https://zadeploy.s3.eu-central-1.amazonaws.com/Logo+with+description+black.png" data-canonical-src="https://zadeploy.s3.eu-central-1.amazonaws.com/Logo+with+description+black.png" width="300" />
+<img src="https://zadeploy.s3.eu-central-1.amazonaws.com/logo.png" data-canonical-src="https://zadeploy.s3.eu-central-1.amazonaws.com/logo.png" width="300" />
 
 # How to submit your homework?
 
