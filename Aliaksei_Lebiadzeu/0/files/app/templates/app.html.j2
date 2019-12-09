@@ -1,0 +1,112 @@
+<!doctype html>
+<head>
+	<title>Stats</title>
+</head>
+<!-- Sample Jinja template -->
+<h1>Memcached statistic:</h1>
+<i>{{ error_message }}</i>
+
+{% if statistic %}
+	<table>
+		<tr>
+			<th colspan="2">Process info</th>
+		</tr>
+		<tr>
+			<td>Memcache version</td>
+			<td>{{ statistic['version'] }}</td>
+		</tr>
+		<tr>
+			<td>Pid</td>
+			<td>{{ statistic['pid'] }}</td>
+		</tr>
+		<tr>
+			<td>Uptime(s)</td>
+			<td>{{ statistic['uptime'] }}</td>
+		</tr>
+	</table>
+	<br>
+	<table>
+		<tr>
+			<th colspan="2">Items info</th>
+		</tr>
+		<tr>
+			<td>Current number of items stored</td>
+			<td>{{ statistic['curr_items'] }}</td>
+		</tr>
+		<tr>
+			<td>Total number of items stored</td>
+			<td>{{ statistic['total_items'] }}</td>
+		</tr>
+	</table>
+	<br>
+	<table>
+		<tr>
+			<th colspan="2">Requests info</th>
+		</tr>
+		<tr>
+			<td>Total number of get requests</td>
+			<td>{{ statistic['cmd_get'] }}</td>
+		</tr>
+		<tr>
+			<td>Total number of set requests</td>
+			<td>{{ statistic['cmd_set'] }}</td>
+		</tr>
+		<tr>
+			<td>Total number of get hits</td>
+			<td>{{ statistic['get_hits'] }}</td>
+		</tr>
+		<tr>
+			<td>Get hits(%)</td>
+			<td>{{ statistic['hits_percentage'] }}</td>
+		</tr>
+                <tr>
+                  	<td>X% of gets missed the cache</td>
+           		<td>{{ statistic['miss_percentage'] }}</td>
+ 		</tr>
+	</table>
+	<br>
+	<table>
+		<tr>
+			<th colspan="2">Memory info</th>
+		</tr>
+		<tr>
+			<td>Max bytes limit</td>
+			<td>{{ statistic['limit_maxbytes'] }}</td>
+		</tr>
+		<tr>
+			<td>Bytes used</td>
+			<td>{{ statistic['bytes'] }}</td>
+		</tr>
+		<tr>
+			<td>Memory used(%)</td>
+			<td>{{ statistic['memory_percentage'] }}</td>
+		</tr>
+	</table>
+	<br>
+	<table>
+		<tr>
+			<th colspan="2">Network info</th>
+		</tr>
+		<tr>
+			<td>Total bytes read</td>
+			<td>{{ statistic['bytes_read'] }}</td>
+		</tr>
+		<tr>
+			<td>Total bytes written</td>
+			<td>{{ statistic['bytes_written'] }}</td>
+		</tr>
+		<tr>
+			<td>Current number of connections</td>
+			<td>{{ statistic['curr_connections'] }}</td>
+		</tr>
+		<tr>
+			<td>Total number of connections</td>
+			<td>{{ statistic['total_connections'] }}</td>
+		</tr>
+	</table>
+{% endif %}
+<br>
+<form method="GET" action="/app">
+	<input type="submit" value="Reload statistic">
+</form>
+
