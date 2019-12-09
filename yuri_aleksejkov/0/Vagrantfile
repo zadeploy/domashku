@@ -12,7 +12,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   config.vm.provision "file", source: "files/site.conf", destination: "/tmp/site.conf"
   config.vm.provision "file", source: "files/app.py", destination: "/tmp/app.py"
-  config.vm.provision "file", source: "files/vagrant_cron", destination: "/tmp/vagrant_cron"
   config.vm.provision "shell", path: "files/provision.sh"
   
 end
