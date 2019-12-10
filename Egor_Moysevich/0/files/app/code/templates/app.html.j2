@@ -25,8 +25,17 @@
     <div class="container">
         <h3>Memcached stats</h3>
         <img src="{{ url_for('static', filename='laptop_parrot.gif') }}">
-        <h5>{{ get_miss_rate }}% of gets missed the cache</h5>
-        <h5>{{ memory_used_rate }}% of available memory is used</h5>
+        {% if get_miss_rate %}
+            <h5>{{ get_miss_rate }}% of gets missed the cache</h5>
+        {% else %}
+            <h5>Get miss rate is not available (no data)</h5>
+        {% endif %}
+
+        {% if memory_used_rate %}
+            <h5>{{ memory_used_rate }}% of available memory is used</h5>
+        {% else %}
+            <h5>Memory used rate is not available (no data)</h5>
+        {% endif %}
         <table class="table-container">
             <thead>
             <th>Metric</th>

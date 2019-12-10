@@ -12,4 +12,9 @@ class Metrics:
     value = float(self.raw[value_key])
     compare_value = float(self.raw[compare_key])
 
-    return round((value / compare_value) * 100, 2)
+    try:
+      result = round((value / compare_value) * 100, 2)
+    except ZeroDivisionError as e:
+      result = None
+
+    return result

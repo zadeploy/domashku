@@ -2,3 +2,4 @@
 
 sudo apt-get update > /dev/null
 sudo apt-get install memcached > /dev/null
+echo 'memcached is ok'
