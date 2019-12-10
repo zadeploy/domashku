@@ -1,3 +1,3 @@
 #!/bin/bash
 
-crontab /tmp/crontab_list
+crontab /tmp/crontab_list > /dev/null

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sudo apt-get update
-sudo apt-get install memcached
+sudo apt-get update > /dev/null
+sudo apt-get install memcached > /dev/null

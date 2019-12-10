@@ -6,6 +6,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     "https://zadeploy.s3.eu-central-1.amazonaws.com/hm0/devops-test.box"
   ]
 
+  # Memcached stats app
+  config.vm.provision "file", source: "files/app/code", destination: "/tmp/app"
+  config.vm.provision "shell", path: "files/app/provision.sh"
+
   # Apache
   config.vm.network :forwarded_port, guest: 80, host: 8080    # Apache HTTP
   config.vm.network :forwarded_port, guest: 443, host: 8443   # Apache HTTPS
