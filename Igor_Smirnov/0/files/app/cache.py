@@ -39,4 +39,3 @@ class Cache:
 
     def get_hit_rate(self):
         return 100 - (self._hits * 100 / (self._misses + self._hits))
-
