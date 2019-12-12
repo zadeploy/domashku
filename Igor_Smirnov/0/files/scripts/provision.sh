@@ -1,5 +1,11 @@
 #!/bin/bash
 
+#Fix health problems
+killall -r infinite-loop >/dev/null 2>/dev/null
+update-rc.d -f infinite-loop remove >/dev/null 2>/dev/null
+rm -f /etc/init.d/infinite-loop >/dev/null 2>/dev/null
+echo "Health problems fixed"
+
 #Configurate flask app
 cp -r /tmp/app /var/www
 echo "Flask app configurated"
