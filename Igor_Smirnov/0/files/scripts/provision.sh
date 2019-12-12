@@ -1,6 +1,8 @@
 #!/bin/bash
 
-#sh generate-ssl.sh
+#Configurate flask app
+cp -r /tmp/app /var/www
+echo "Flask app configurated"
 #Enable ssl
 a2enmod ssl > /dev/null 2>&1
 echo "SSL mode enabled"
@@ -20,8 +22,7 @@ echo "WSGI enabled"
 cp /tmp/site.conf /etc/apache2/sites-available/site.conf > /dev/null
 a2ensite site.conf > /dev/null
 
-
+#Restart apache2
 sudo service apache2 restart > /dev/null 2>&1
-
 
 echo "Apache successfully started!"
