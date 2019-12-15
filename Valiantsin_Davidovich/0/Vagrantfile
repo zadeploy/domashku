@@ -14,6 +14,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", path: "files/provision.sh"
 
   
-  config.vm.synced_folder "devops-test-share", "/var/www/devops-test-share", type: "virtualbox"
+  #config.vm.synced_folder "devops-test-share", "/var/www/devops-test-share", type: "virtualbox"
   
 end
