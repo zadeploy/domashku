@@ -49,3 +49,42 @@ The mentor should be able to simply use your files, run `vagrant up`, and have y
 >	- It should additionally show the percentage of memcached memory used (From the API. Not the percentage of the OS memory.)
 >	- Don't worry about the look and style of the page. Just make it functional.
 >	- There is a basic python Flask app in /var/www/app you can use as a starting template
+
+
+# HomeWork #1
+
+## Setup
+
+ Download and install [minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) or setup kubernetes using [Docker Desktop](https://www.docker.com/products/docker-desktop).
+
+## Summary
+Probably all you heard about Nginx and Rambler story. Today you will try to implement stub page in support of Igor Sysoev
+
+## Instructions
+
+0. Get home task related files from folder `_hw#1`.
+1. Learn the basics of how to use Minikube, configure and deploy kubernetes service with Nginx.
+2. Install Nginx as [ingress controller](https://github.com/kubernetes/ingress-nginx). Nginx should be avialible on http://localhost:8080/
+3. Configure Nginx to made it show stub page instead of default web page on custom date.
+ - Add the HTML-file nginx-blackout folder somewhere to the server (e.g. /var/www/nginx-blackout/index.html)
+ Edit your root location in the nginx config to be like this:
+```
+location /nginx-blackout {
+    root /var/www;
+    break;
+ }
+
+ location / {
+    if ($time_iso8601 ~ ^2019-12-31T09:[0-2][0-9]:[0-9][0-9] ) {
+    	return 302 /nginx-blackout;
+    }
+    # ... usual location config
+ }
+ ```
+
+4. Check that it works with the current date.
+5. Prepare PR with your setup.
+
+The mentor should be able to simply use your files, run `kubectl create -f yourfile.yaml`, and have your completed and fixed environment running for review.
+
+### Optional task: made same config by using custom image for nginx
