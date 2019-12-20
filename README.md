@@ -66,6 +66,7 @@ Probably all you heard about Nginx and Rambler story. Today you will try to impl
 1. Learn the basics of how to use Minikube, configure and deploy kubernetes service with Nginx.
 2. Install Nginx as [ingress controller](https://github.com/kubernetes/ingress-nginx). Nginx should be avialible on http://localhost:8080/
 3. Configure Nginx to made it show stub page instead of default web page on custom date.
+ - Add to header "Powered by nginx"
  - Add the HTML-file nginx-blackout folder somewhere to the server (e.g. /var/www/nginx-blackout/index.html)
  Edit your root location in the nginx config to be like this:
 ```
