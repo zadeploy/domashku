@@ -89,3 +89,27 @@ location /nginx-blackout {
 The mentor should be able to simply use your files, run `kubectl create -f yourfile.yaml`, and have your completed and fixed environment running for review.
 
 ### Optional task: made same config by using custom image for nginx
+
+# HomeWork The Last One
+
+## Setup
+Fork [github repo](https://github.com/zadeploy/profile_app)
+
+## Summary
+It's time to check whether you will to be in the camp! All you need is to deploy the app from the forked repo, but as usually you have to face some difficulties.
+## Instructions
+
+1. Get the repo and run it locally. After the launch, just open the root route.
+You can use this command to launch the app:
+```
+rackup
+```
+2. Choose a CI/CD service (Gitlab/CircleCI/TravisCI/your_favourite_service).
+[Here](https://circleci.com/docs/2.0/configuration-reference/) you can find how to configure [CircleCI](https://circleci.com/).
+3. Build pipline for the selected service with 3 stages:
+  - [rspec](https://rspec.info/)
+  - [rubocop](https://www.rubocop.org/en/stable/)
+  - deploy
+4. Deploy your app to [Heroku](https://heroku.com/).
+5. After the deployment you'll get the link where you app lives.
+6. Submit this link to the [Form](https://forms.gle/BzqcZveuX15577297).
