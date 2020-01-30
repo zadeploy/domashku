@@ -1,0 +1,18 @@
+VAGRANTFILE_API_VERSION = '2'
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = 'neve/devops-test'
+  config.vm.box_url = %w[file://./devops-test.box]
+  
+  config.vm.network :forwarded_port, guest: 80, host: 8080    # Apache HTTP
+  config.vm.network :forwarded_port, guest: 443, host: 8443   # Apache HTTPS
+  
+  config.vm.provision 'file', source: 'files/site.conf', destination: '/tmp/site.conf'
+  config.vm.provision 'file', source: 'files/ssl-params.conf', destination: '/tmp/ssl-params.conf' 
+  config.vm.provision 'file', source: 'files/app', destination: '/tmp/app'
+ 
+  config.vm.provision 'shell', path: 'files/infinite_loop_killer.sh'
+  config.vm.provision 'shell', path: 'files/apache_configurator.sh'
+  config.vm.provision 'shell', path: 'files/memcached_configurator.sh'
+  
+end
