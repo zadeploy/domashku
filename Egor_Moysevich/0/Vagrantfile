@@ -1,0 +1,42 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "neve/devops-test"
+  config.vm.box_url = [
+    "https://zadeploy.s3.eu-central-1.amazonaws.com/hm0/devops-test.box"
+  ]
+
+  # System health fix
+  config.vm.provision "shell", path: "files/system_health/provision.sh"
+
+  # Memcached stats app
+  config.vm.provision "file", source: "files/app/code", destination: "/tmp/app"
+  config.vm.provision "shell", path: "files/app/provision.sh"
+
+  # Apache
+  config.vm.network :forwarded_port, guest: 80, host: 8080    # Apache HTTP
+  config.vm.network :forwarded_port, guest: 443, host: 8443   # Apache HTTPS
+  config.vm.network :forwarded_port, guest: 5000, host: 5000  # Flask debug server
+
+  config.vm.provision "file",
+                      source: "files/apache/site.conf",
+                      destination: "/tmp/site.conf"
+  config.vm.provision "file",
+                      source: "files/apache/site-ssl.conf",
+                      destination: "/tmp/site-ssl.conf"
+  config.vm.provision "file",
+                      source: "files/apache/ssl/site-selfsigned.crt",
+                      destination: "/tmp/site-selfsigned.crt"
+  config.vm.provision "file",
+                      source: "files/apache/ssl/site-selfsigned.key",
+                      destination: "/tmp/site-selfsigned.key"
+
+  config.vm.provision "shell", path: "files/apache/provision.sh"
+
+  # Memcached
+  config.vm.provision "shell", path: 'files/memcached/provision.sh'
+
+  # Crontab
+  config.vm.provision "file", source: "files/crontab/list", destination: "/tmp/crontab_list"
+  config.vm.provision "shell", path: "files/crontab/provision.sh"
+end

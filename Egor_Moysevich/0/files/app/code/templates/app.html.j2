@@ -1,0 +1,54 @@
+<!doctype html>
+<head>
+    <title>Memcached Stats</title>
+
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-size: x-large;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid white;
+        }
+        .container { text-align: center }
+        .table-container {
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3>Memcached stats</h3>
+        <img src="{{ url_for('static', filename='laptop_parrot.gif') }}">
+        {% if get_miss_rate %}
+            <h5>{{ get_miss_rate }}% of gets missed the cache</h5>
+        {% else %}
+            <h5>Get miss rate is not available (no data)</h5>
+        {% endif %}
+
+        {% if memory_used_rate %}
+            <h5>{{ memory_used_rate }}% of available memory is used</h5>
+        {% else %}
+            <h5>Memory used rate is not available (no data)</h5>
+        {% endif %}
+        <table class="table-container">
+            <thead>
+            <th>Metric</th>
+            <th>Value</th>
+            </thead>
+            <tbody>
+            {% for key, value in stats.items()|sort %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
