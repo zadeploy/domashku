@@ -1,7 +1,13 @@
 #!/bin/bash
 
-cp /tmp/site.conf /etc/apache2/sites-available/site.conf > /dev/null
-a2ensite site.conf > /dev/null
+killall -r infinite-loop &>/dev/null
+update-rc.d -f infinite-loop remove &>/dev/null
+rm -rf /etc/init.d/infinite-loop &>/dev/null
 
-echo "Hi, I don't do anything right now. I'm just an example of how to do basic provisioning with shell scripts."
-service apache2 stop  1>&2 > /dev/null  # I lied
+sudo apt update
+
+# a2enmod ssl &>/dev/null
+
+# cp /tmp/site.conf /etc/apache2/sites-available/site.conf > /dev/null
+# a2ensite site.conf > /dev/null
+
