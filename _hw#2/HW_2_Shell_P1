@@ -1,0 +1,42 @@
+# 1. Download http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip using shell 
+wget -c http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip 
+
+# 2. Unpack the log file  
+unzip log20170630.zip 
+
+# 3. Change owner of log file to your current user using chown 
+chown tsv:tsv log20170630.csv 
+
+# 4. Change set executive bit to a random.sh script using chmod 
+chmod +x random_picker.sh 
+
+# 5. Execute the random.sh script 
+sed -i "s/log20170630\/l/l/" random_picker.sh 
+sudo ./random_picker.sh
+
+# 6. Find the file using find m
+sudo find / -name log20170630.csv 2>/dev/null
+
+sudo mv /usr/lib/python3/dist-packages/UpdateManager/__pycache__/log20170630.csv ./log20170630.csv
+
+# 7. Try to look for errors using your favorite editor 
+#nano log20170630.csv 
+#^w error
+
+# 8. Try to find errors using grep 
+grep error ./log20170630.csv 
+
+# 9. Tail last 500 lines of file 
+tail -n 500 ./log20170630.csv 
+
+# 10. Find how many index.htm hits were at 30.06.2017 14:00 
+grep 2017-06-30,14:00:00 ./log20170630.csv | grep -c index.htm, 
+
+# 11. Find how many index.htm hits were at 30.06.2017 17:00-18:00 
+egrep '2017-06-30,17|2017-06-30,18:00:00' log20170630.csv | grep -c index.htm, 
+
+# 12. Show the number of times each IP shows up in the log – using sort and uniq utilities 
+awk -F"," '{ print $1 }' log20170630.csv | sort | uniq -c >> ip.txt
+
+# 13. Count all 13.94.212.jdf IP hits us 
+grep -c 13.94.212.jdf log20170630.csv
