@@ -78,13 +78,6 @@ echo "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=ubuntu
 update_config=1
 country=BY
 network={
-    ssid=\"Redmi_1\"
-    psk=\"a6436797\"
-    scan_ssid=1
-    key_mgmt=WPA-PSK
-    id_str=\"phone\"
-}
-network={
     ssid=\"rubizza\"
     psk=\"rubizza2019\"
     key_mgmt=WPA-PSK
