@@ -1,0 +1,44 @@
+PART I
+
+wget -O zip.zip "http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip"
+unzip zip.zip 
+chown $USER:$USER log20170630.csv 
+chmod +x random_picker.sh
+sudo ./random_picker.sh 
+sudo find / -type f -name "log20170630.csv"
+cat log20170630.csv |grep error |more
+tail -n 500 log20170630.csv 
+cat log20170630.csv |grep '2017-06-30,14:00' |grep index.htm >>test &&wc test
+cat log20170630.csv |grep '2017-06-30,17:[0-59]' |grep index.htm >>test2 &&wc test2
+sort log20170630.csv >test3 && uniq -w 11 -c test3 >test4 &&sort  test4
+cat test4 | grep 13.94.212.jdf >test5 && wc test5
+
+PART II
+
+sed -i -e 's/^adm.*/&,ubuntu/g' /etc/group
+sed -i -e 's/^root.*/&,ubuntu/g' /etc/group
+sed -i -e 's+.*+Europe/Berlin+1' /etc/timezone
+timedatectl set-timezone Europe/Minsk
+
+PART III
+
+read(3, "#!/bin/bash\nmv log20170630.csv `"..., 80) = 65
+read(255, "#!/bin/bash\nmv log20170630.csv `"..., 65) = 65
+stat("/usr/local/sbin/mv", 0x7ffd008a4700) = -1 ENOENT (No such file or directory)
+stat("/usr/local/bin/mv", 0x7ffd008a4700) = -1 ENOENT (No such file or directory)
+stat("/usr/sbin/mv", 0x7ffd008a4700)    = -1 ENOENT (No such file or directory)
+stat("/usr/bin/mv", {st_mode=S_IFREG|0755, st_size=149888, ...}) = 0
+stat("/usr/bin/mv", {st_mode=S_IFREG|0755, st_size=149888, ...}) = 0
+access("/usr/bin/mv", X_OK)             = 0
+stat("/usr/bin/mv", {st_mode=S_IFREG|0755, st_size=149888, ...}) = 0
+access("/usr/bin/mv", R_OK)             = 0
+stat("/usr/bin/mv", {st_mode=S_IFREG|0755, st_size=149888, ...}) = 0
+stat("/usr/bin/mv", {st_mode=S_IFREG|0755, st_size=149888, ...}) = 0
+access("/usr/bin/mv", X_OK)             = 0
+stat("/usr/bin/mv", {st_mode=S_IFREG|0755, st_size=149888, ...}) = 0
+access("/usr/bin/mv", R_OK)             = 0
+
+ANSWER = 4
+
+
+
