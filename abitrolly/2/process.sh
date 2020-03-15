@@ -32,13 +32,13 @@ chmod +x random.sh
 ./random.sh
 
 # Find the file using find
-NEWLOC=$(find /usr -type f -name "$NAME")
+NEWLOC=$(find /usr -type f -name "$NAME.csv")
 
 # Try to look for errors using your favorite editor
 vim "$NEWLOC"
 
 # Try to find errors using grep
-grep 404 "$NEWLOC"
+grep 404 "$NEWLOC" -m 10
 
 # Tail last 500 lines of file
 tail -n 500 "$NEWLOC"
