@@ -7,6 +7,7 @@ set -o nounset
 # Download http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip using shell
 URL="http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip"
 FILENAME="$(basename $URL)"
+NAME="$(basename $FILENAME .zip)"
 
 # download only if there is no file
 [[ -f $FILENAME ]] || curl -#LO "$URL"
@@ -16,8 +17,8 @@ FILENAME="$(basename $URL)"
 
 
 # Unpack the log file
-CSVNAME="$(basename $FILENAME .zip).csv"
-[[ -f $CSVNAME ]] || unzip "$FILENAME"
+CSVNAME="$NAME/$NAME.csv"
+[[ -f $CSVNAME ]] || unzip -d "$NAME" "$FILENAME"
 echo "Unpacked"
 
 
