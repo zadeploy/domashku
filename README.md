@@ -113,3 +113,90 @@ rackup
 4. Deploy your app to [Heroku](https://heroku.com/).
 5. After the deployment you'll get the link where you app lives.
 6. Submit this link to the [Form](https://forms.gle/BzqcZveuX15577297).
+
+# Courses HomeWork #1
+## Setup
+How to [install OS](https://www.raspberrypi.org/documentation/installation/installing-images/)
+## Summary
+We build our own Data Center.
+You've got Rasbperry PI 4. Install Ubuntu - prepare a brick for Data Center.
+
+## Instructions
+1. Prepare setup instructions and scripts to repro it.
+
+# Courses HomeWork #2
+## Summary
+The Division of Economic and Risk Analysis (DERA) has assembled information on
+internet search traffic for EDGAR filings through SEC.gov.
+
+The EDGAR Log File Data Set contains information in CSV format extracted from
+Apache log files that record and store user access statistics
+for the SEC.gov website.
+## Instructions
+### Part 1
+0. Download [file](http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip) using shell
+1. Unpack the log file
+2. Change owner of log file to your current user using chown
+3. Change set executive bit to a random.sh script using chmod
+4. Execute the random.sh script
+5. Find the file using find
+6. Try to look for errors using your favorite editor
+7. Try to find errors using grep
+8. Tail last 500 lines of file
+9. Find how many index.htm hits were at 30.06.2017 14:00
+10. Find how many index.htm hits were at 30.06.2017 17:00-18:00
+11. Show the number of times each IP shows up in the log – using sort and uniq utilities
+12. Count all 13.94.212.jdf IP hits us
+### Part 2
+0. Create script which will:
+ - Add ubuntu user to adm and root groups using sed
+ - Change timezone to Europe/Berlin in /etc/timezone using sed
+ - Change timezone to Europe/Minsk using bash shell utilites and apply it using system commands
+
+### Part 3
+0. Examine ls using strace command:
+- apt-get install strace
+- strace ls ./
+1. Assess how Linux executes the ./random.sh script
+- touch log20170630.csv
+- strace ./random.sh
+2. Count number of “mv” command paths using pipes and grep for strace ./random.sh
+# Courses HomeWork #3
+## Setup
+## Summary
+Today we will fight with DHCP ips registration!
+
+The idea is to use dynamic DNS FQDN registration and create/update the FQDN for
+your raspberry each time it goes on reboot.
+
+## Instructions
+0. Create a script which will add Cloudflare DNS to your raspberry
+```
+/etc/resolv.conf
+
+arya.ns.cloudflare.com
+
+chance.ns.cloudflare.com
+```
+1. Create a script to automatically register your raspberry in Cloudflare
+dynamic DNS using REST API (https://api.cloudflare.com/#dns-records-for-a-zone-properties )
+
+Script should check:
+  - if the name is already existing – notify user
+  - if the name is missing – create new record
+  - if the ip is the same – skip registration & exit
+  - if the ip is present and is different – update record with new ip
+
+Script should comply with the following reqs
+  - TTL should be low
+  - Script should handle an error if any and provide user with Cloudflare response messages
+  - Check your syntax with BASH -N
+
+2. Create a function to perform curl to Cloudflare API and return response as an
+array, Function should accept array of arguments with data required to do a
+requestScript should accept only one argument – FQDN you want to assign to raspberry
+
+```
+register_pi_name student_lastname.lab.zadeploy.com
+```
+3. Create autostart systemd script to enable your script on [Pi boot](https://askubuntu.com/a/719157)
