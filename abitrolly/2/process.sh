@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -o errexit
+set -o nounset
+
 # Download http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip using shell
 URL="http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip"
 FILENAME="$(basename $URL)"
@@ -12,11 +15,13 @@ FILENAME="$(basename $URL)"
 
 
 # Unpack the log file
-NAME="$(basename $FILENAME .zip)"
-[[ -f $NAME.csv ]] || unzip "$FILENAME"
+CSVNAME="$(basename $FILENAME .zip).csv"
+[[ -f $CSVNAME ]] || unzip "$FILENAME"
+echo "Unpacked"
 
 
 # Change owner of log file to your current user using chown
+chown $USER $CSVNAME
 
 # Change set executive bit to a random.sh script using chmod
 
