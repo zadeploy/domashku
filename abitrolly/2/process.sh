@@ -12,7 +12,8 @@ FILENAME="$(basename $URL)"
 
 
 # Unpack the log file
-unzip "$FILENAME"
+NAME="$(basename $FILENAME .zip)"
+[[ -f $NAME.csv ]] || unzip "$FILENAME"
 
 
 # Change owner of log file to your current user using chown
