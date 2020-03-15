@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -x
 set -o errexit
 set -o nounset
 
@@ -24,21 +25,32 @@ echo "Unpacked"
 chown $USER $CSVNAME
 
 # Change set executive bit to a random.sh script using chmod
+chmod +x random.sh
 
 # Execute the random.sh script
+./random.sh
 
 # Find the file using find
+NEWLOC=$(find /usr -type f -name "$NAME")
 
 # Try to look for errors using your favorite editor
+vim "$NEWLOC"
 
 # Try to find errors using grep
+grep 404 "$NEWLOC"
 
 # Tail last 500 lines of file
+tail -n 500 "$NEWLOC"
 
 # Find how many index.htm hits were at 30.06.2017 14:00
+grep "2017-06-30,14:00" "$NEWLOC" | grep "index.htm" | wc -l
 
 # Find how many index.htm hits were at 30.06.2017 17:00-18:00
+grep "2017-06-30,17" "$NEWLOC" | grep "index.htm" | wc -l
 
 # Show the number of times each IP shows up in the log – using sort and uniq utilities
+cut -d, -f1 < "$NEWLOC" | sort | uniq -c | sort -rn
 
 # Count all 13.94.212.jdf IP hits us
+grep "13.94.212.jdf" "$NEWLOC" | wc -l
+
