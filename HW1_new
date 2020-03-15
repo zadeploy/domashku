@@ -1,0 +1,77 @@
+#Part 1
+-- Download http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip using shell
+alex@alex-HP:~$ wget http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip
+
+-- Unpack the log file
+alex@alex-HP:~$ unzip log20170630.zip
+
+-- Change owner of log file to your current user using chown
+alex@alex-HP:~$chown $(whoami):$(whoami) log20170630.csv
+
+-- Change set executive bit to a random.sh script using chmod
+alex@alex-HP:~/hometask$ sudo chmod u+x random_picker.sh
+
+-- Execute the random.sh script
+alex@alex-HP:~$ mkdir hometask
+alex@alex-HP:~$ mkdir log20170630
+alex@alex-HP:~$ mv log20170630.csv log20170630/
+
+-- Find the file using find
+alex@alex-HP:~/hometask$ sudo find / -name "log20170630.csv"
+
+-- Try to look for errors using your favorite editor
+alex@alex-HP:~/hometask/log20170630$ nano log20170630.csv
+
+-- Try to find errors using grep
+alex@alex-HP:~/hometask/log20170630$ grep error log20170630.csv
+
+-- Tail last 500 lines of file
+alex@alex-HP:~/hometask/log20170630$ tail -500 log20170630.csv
+
+-- Find how many index.htm hits were at 30.06.2017 14:00 
+alex@alex-HP:~/hometask/log20170630$ grep '2017-06-30,14:00' log20170630.csv | grep -c 'index.htm'
+
+-- Find how many index.htm hits were at 30.06.2017 17:00-18:00
+#вариант проще:
+alex@alex-HP:~/hometask$ grep '2017-06-30,17' log20170630.csv | grep -c 'index.htm'
+#вариант сложнее:
+alex@alex-HP:~/hometask/log20170630$ grep '2017-06-30,17:\|2017-06-30,18:00 log20170630.csv | grep -c index.htm
+
+-- Show the number of times each IP shows up in the log – using sort and uniq utilities
+alex@alex-HP:~/hometask/log20170630$ cat log20170630.csv | awk -F ',' '{print $1}' | sort | uniq -c | sort -n
+
+-- Count all 13.94.212.jdf IP hits us
+alex@alex-HP:~/hometask/log20170630$ grep -c '13.94.212.jdf' log20170630.csv
+
+#Part 2
+-- Create script which will Change timezone to Europe/Berlin in /etc/timezone using sed
+alex@alex-HP:~/hometask$ touch change_weather.sh
+alex@alex-HP:~/hometask$ nano change_weather.sh
+#!/bin/bash
+cd /etc
+sed 's/Minsk/Berlin/g' timezone
+alex@alex-HP:~/hometask$ chmod 777 change_timezone.sh 
+alex@alex-HP:~/hometask$ ./change_timezone.sh 
+
+-- Change timezone to Europe/Minsk using bash shell utilites and apply it using system commands
+alex@alex-HP:~/hometask$timedatectl set-timezone Europe/Berlin
+
+#Part 3
+-- Examine ls using strace command
+alex@alex-HP:~/hometask$ apt-get install strace
+alex@alex-HP:~/hometask$ strace ls ./
+
+-- Assess how Linux executes the ./random.sh script   
+alex@alex-HP:~/hometask$ touch log20170630.csv
+alex@alex-HP:~/hometask$ strace ./random.sh
+
+-- Count number of “mv” command paths using pipes and grep for 
+alex@alex-HP:~/hometask$ strace ./random.sh
+
+
+
+
+
+
+
+
