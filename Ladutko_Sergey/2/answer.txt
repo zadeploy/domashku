@@ -1,0 +1,26 @@
+Part 1
+1. wget http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip
+2. unzip  log20170630.zip  -d ./homeworkfile
+3. chown $USER log20170630.csv 
+4. sudo chmod +x random_picker.sh
+5. find /usr/ -name "log20170630.csv"
+6. sudo nano /usr/src/linux-headers-5.0.0-32/tools/hv/log20170630.csv
+7. sudo cat  /usr/src/linux-headers-5.0.0-32/tools/hv/log20170630.csv | grep error
+8. sudo tail -n 500  /usr/src/linux-headers-5.0.0-32/tools/hv/log20170630.csv
+9. sudo cat  /usr/src/linux-headers-5.0.0-32/tools/hv/log20170630.csv | grep index.html | grep  -w 14:00 | sed 's/:/ /g' | grep -w 06-30 
+10 sudo cat  /usr/src/linux-headers-5.0.0-32/tools/hv/log20170630.csv | grep index.html | sed 's/,/ /g' |sed -n '/2017-06-30/p' |  grep -E "1[65]:[[:digit:]]{2}:[[:digit:]]{2}" 
+11. sudo cat  /usr/src/linux-headers-5.0.0-32/tools/hv/log20170630.csv | grep index.html | sed 's/,/ /g' |sed -n '/2017-06-30/p' |  grep -E "1[65]:[[:digit:]]{2}:[[:digit:]]{2}" | awk '{print $1}' |  uniq -c | sort -n
+12. sudo cat  /usr/src/linux-headers-5.0.0-32/tools/hv/log20170630.csv | grep index.html | sed 's/,/ /g' |sed -n '/2017-06-30/p' |  grep -E "1[65]:[[:digit:]]{2}:[[:digit:]]{2}" | awk '{print $1}' |  uniq -c | sort -n | grep 13.94.212.jdf
+13. sudo cat  /usr/src/linux-headers-5.0.0-32/tools/hv/log20170630.csv | grep 13.94.212.jdf | wc -l
+
+
+Part 2
+1. sed -i -r -e '/ubuntu/! s/^(root|adm):.*\w$/\0,/' 
+   sed -i -r -e '/ubuntu/! s/^(root|adm):.*/\0ubuntu/' /etc/group
+2.  #!/bin/sh
+    sed -i  "s|Minsk|"Berlin"|g" app.js
+3.    
+    sudo  dpkg-reconfigure tzdata
+
+Part 3
+    sudo  strace -o ./test.txt ./random.sh | cat test.txt | grep mv | wc -l
