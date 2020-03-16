@@ -1,0 +1,34 @@
+Part 1
+1) wget 'http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip'
+2) unzip log20170630.zip
+3) chmod 755 log20170630.csv
+4) chmod 700 random_picker.sh
+5) find random_picker.sh
+6) code log20170630.csv
+7) grep 'error' log20170630.csv
+8) tail -100 log20170630.csv
+9) grep '2017-06-30,14:00'  log20170630.csv | grep 'index.htm' | wc -l
+    10416 records
+10) grep '2017-06-30,17:00\|2017-06-30,18:00'  log20170630.csv | grep 'index.htm' | wc -l
+   19432 records
+
+11) cut -d, -f1 log20170630.csv | sort | uniq -ic
+
+12) grep '13.94.212.jdf'  log20170630.csv | wc -l
+   87313
+
+Part 2
+
+1) sed -i 's/^adm.*/&,ubuntu/g' /etc/group
+2) sed -i 's/^root.*/&ubuntu/g' /etc/group
+3) sudo sed -i 's/Minsk/Berlin/' /etc/timezone
+4) sudo timedatectl set-timezone Europe/Minsk
+
+Part 3
+
+1) strace ls ./
+
+2) touch log20170630.csv
+strace ./random_picker.sh
+
+3) strace ./random_picker.sh 2>&1 | grep mv | wc -l
