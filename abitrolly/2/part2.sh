@@ -8,3 +8,4 @@ sed -i -r -e '/ubuntu/! s/^(root|adm):.*\w$/\0,/'  `# add comma if needed` \
 sed -i 's/.*/Europe\/Berlin/' /etc/timezone
 
 : Change timezone to Europe/Minsk using bash shell utilites and apply it using system commands
+timedatectl set-timezone Europe/Minsk
