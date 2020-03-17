@@ -1,0 +1,3 @@
+ubuntu@dimon:~/zadeploy/hw1$ sudo strace -o mv.txt ./random_picker.sh
+ubuntu@dimon:~/zadeploy/hw1$ grep -c mv mv.txt 
+15
