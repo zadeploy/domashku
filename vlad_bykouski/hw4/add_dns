@@ -1,9 +1,11 @@
 #!/bin/bash
-if [ -z $(cat /etc/resolv.conf | grep arya.ns.cloudflare.com) ]
+TEST=$(cat /etc/resolv.conf | grep arya.ns.cloudflare.com) 
+if [ -z TEST ]
   then echo "arya.ns.cloudflare.com" >> /etc/resolv.conf
   else echo "arya already added"
 fi
-if [ -z $(cat /etc/resolv.conf | grep chance.ns.cloudflare.com) ]
+TEST=$(cat /etc/resolv.conf | grep chance.ns.cloudflare.com)
+if [ -z TEST ]
   then echo "chance.ns.cloudflare.com" >> /etc/resolv.conf
   else echo "chance already added"
 fi
