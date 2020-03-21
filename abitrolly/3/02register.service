@@ -1,0 +1,10 @@
+[Unit]
+Description=Register RPi to Cloudflare DNS
+
+[Service]
+ExecStart=/root/02register.sh
+Type=oneshot
+#RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
