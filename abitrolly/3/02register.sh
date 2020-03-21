@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+#set -x
 set -o errexit
 set -o nounset
 
@@ -12,19 +12,36 @@ APIURL="https://api.cloudflare.com/client/v4/zones/$ZONEID/dns_records"
 
 IPADDR="$(ip route get 8.8.8.8 | cut -f 7 -d' ')"
 
-noname () {
-  # Returns 1 if name is not present
-  echo "[x] Checking if ${FQDN} is already registered.."
 
-  RET=0
-  curl -sS -H "Content-Type: application/json" \
+RECORDID=
+
+registered () {
+  # Returns 1 if registered, 0 if not.
+  # Returns 2 if IP is wrong and sets RECORDID.
+  echo -e "[x] Checking if ${FQDN} is already registered.."
+
+  OUT=$(curl -sS -H "Content-Type: application/json" \
        -H "Authorization: Bearer ${TOKEN}" \
-       "$APIURL" \
-    | jq . | grep -q "$FQDN"  `# returns 1 if no matches` \
-    && RET=$? || RET=$?
+       "$APIURL")
 
-  # doesn't distinguish between no record and error making request
-  return $RET
+  if [[ $OUT == *"$FQDN"* ]]; then
+    REGIP=$(grep -Po "\"${FQDN}\",\"content\":\"\K.*?(?=\")" <<< "$OUT")
+    if [[ "$REGIP" == "$IPADDR" ]]; then
+      return 1
+    else
+      echo "IP ${REGIP} doesn't match local ${IPADDR}"
+      ID=$(grep -Po '"id":"\K.*?(?=","type":"A","name":"'"${FQDN}"'")' <<< "$OUT")
+      # there could be more than one record, return only the first
+      if [[ "$ID" =~ [[:space:]]+ ]]; then
+	 ARRID=($ID)
+	 RECORDID=${ARRID[0]}
+      else
+	 RECORDID=$ID
+      fi
+      return 2
+    fi
+  fi
+  return 0
 }
 
 register () {
@@ -44,19 +61,33 @@ register () {
   RES=$(curl -sS -H "Content-Type: application/json" \
           -H "Authorization: Bearer ${TOKEN}" \
 	  -d "$JSON" "$APIURL")
-  if [[ $RES == *'"success":true"'* ]]; then
+  echo "$RES"
+  if [[ $RES == *'"success":true,'* ]]; then
     echo -e "Registered ${FQDN} A ${IPADDR}"
   elif [[ $RES == *'"The record already exists."'* ]]; then
-    echo -e "The record for ${FQDN} already exist"
+    echo -e "The record ${FQDN} A ${IPADDR} already exists."
   else
     echo "Error registering ${FQDN}"
   fi
 }
 
+remove () {
+ echo "[x] Removing record for ${FQDN} with ID ${RECORDID}.."
 
-if [[ noname ]]; then
-  register
+ RES=$(curl -sS -H "Content-Type: application/json" \
+          -H "Authorization: Bearer ${TOKEN}" \
+	  -X DELETE "$APIURL"/"$RECORDID")
+ echo $RES
+}
+
+
+registered && REGD=$? || REGD=$?
+if [[ $REGD == 1 ]]; then
+  echo "${FQDN} A ${IPADDR} is already in DNS records"
 else
-  echo "${FQDN} is already present in DNS records"
+  if [[ $REGD == 2 ]]; then
+    remove
+  fi
+  register
 fi
 
