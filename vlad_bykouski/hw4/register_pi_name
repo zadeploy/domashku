@@ -1,0 +1,75 @@
+#!/bin/bash
+
+set -o errexit
+bash -n $0
+
+EMAIL="<EMAIL>"
+KEY="<API_KEY>"
+ZONE="<ZONE_ID>"
+NAME=$1
+
+get_dns_records(){
+curl -X GET "https://api.cloudflare.com/client/v4/zones/$ZONE/dns_records?name=$NAME" -s\
+	-H "Content-Type:application/json" \
+ 	-H "X-Auth-Email: $EMAIL" \
+	-H "X-Auth-Key: $KEY"
+}
+
+create_dns_record(){
+curl -X POST "https://api.cloudflare.com/client/v4/zones/$ZONE/dns_records" -s\
+  -H "X-Auth-Email: $EMAIL" \
+  -H "X-Auth-Key: $KEY" \
+  -H "Content-Type: application/json" \
+  --data '{"type":"A","name":'\"$NAME\"',"content":"127.0.0.1","ttl":120,"priority":10,"proxied":false}'
+}
+
+update_dns_record(){
+curl -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE/dns_records/$IDENTIFIER" -s\
+     -H "X-Auth-Email: $EMAIL" \
+     -H "X-Auth-Key: $KEY" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"A","name":'\"$NAME\"',"content":"127.0.0.1","ttl":120,"proxied":false}'
+}
+
+read -p "Email ($EMAIL): " tempEMAIL
+if [ ! -z "$tempEMAIL" ]
+  then EMAIL="$tempEMAIL"
+fi
+
+read -p "API Key ($KEY): " tempKey
+if [ ! -z "$tempKey" ]
+  then KEY="$tempKey"
+fi
+
+read -p "Zone ($ZONE): " tempZone
+if [ ! -z "$tempZone" ]
+  then ZONE="$tempZone"
+fi
+
+read -p "Name ($NAME): " tempName
+if [ ! -z "$tempName" ]
+  then NAME="$tempName"
+fi
+
+RESPONSE=$(get_dns_records)
+if [ ! -z $RESPONSE ]
+then
+  IDENTIFIER=$(echo $RESPONSE|jq '.result[].id'| tr -d '"')
+  IP=$(echo $RESPONSE|jq '.result[].content'| tr -d '"')
+  if [ ! -z $IDENTIFIER ]
+  then
+    echo "ID exists"
+    if [ $IP!="127.0.0.1"  ]
+    then
+      update_dns_record > /dev/null
+      echo "Record updated"
+    else 
+      echo "Nothing to update"
+    fi
+  else
+    create_dns_record > /dev/null
+    echo "Record created"
+  fi
+else
+  echo "Failed request"
+fi
