@@ -80,3 +80,5 @@ target/
 # Vagrant
 .vagrant
 
+# Enviroment
+.env
