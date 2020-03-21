@@ -1,0 +1,15 @@
+1. wget http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip
+2. unzip log20170630.csv
+3. chown bardatsky log20170630.csv 
+4. chmod +x log20170630.csv
+5. mkdir log20170630
+6. mv log20170630.csv ./log20170630
+7. find ~ -name "log20170630.csv"
+8. nano /home/bardatky/log20170630/log20170630.csv
+9. grep -w --color "error" log20170630.csv
+10. tail -n 500 log20170630.csv 
+11. grep -c "2017-06-30,14:00.*index.htm" log20170630.csv
+12. grep -c "2017-06-30,17.*index.htm" log20170630.csv
+13. awk -F ',' '{print $1}' log20170630.csv | sort | uniq -c | sort -rn
+14. grep -c "13.94.212.jdf" log20170630.csv 
+ 
