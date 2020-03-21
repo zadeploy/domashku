@@ -44,12 +44,14 @@ registered () {
   return 0
 }
 
-register () {
-  echo "[x] Creating record for ${FQDN}.."
+register_pi_name () {
+  local _FQDN=$1
+
+  echo "[x] Creating record for ${_FQDN}.."
 
   JSON='{
     "type": "A",
-    "name":"'"$FQDN"'",
+    "name":"'"$_FQDN"'",
     "content":"'"$IPADDR"'",
     "ttl": 120
   }'
@@ -63,11 +65,11 @@ register () {
 	  -d "$JSON" "$APIURL")
   echo "$RES"
   if [[ $RES == *'"success":true,'* ]]; then
-    echo -e "Registered ${FQDN} A ${IPADDR}"
+    echo -e "Registered ${_FQDN} A ${IPADDR}"
   elif [[ $RES == *'"The record already exists."'* ]]; then
-    echo -e "The record ${FQDN} A ${IPADDR} already exists."
+    echo -e "The record ${_FQDN} A ${IPADDR} already exists."
   else
-    echo "Error registering ${FQDN}"
+    echo "Error registering ${_FQDN}"
   fi
 }
 
@@ -88,6 +90,6 @@ else
   if [[ $REGD == 2 ]]; then
     remove
   fi
-  register
+  register_pi_name "$FQDN"
 fi
 
