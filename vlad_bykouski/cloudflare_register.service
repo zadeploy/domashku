@@ -1,0 +1,11 @@
+[Unit]
+Description=Register RaspberryPI to Cloudflare
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+User=root
+ExecStart=/root/register_pi_name bykouski.lab.zadeploy.com
+
+[Install]
+WantedBy=multi-user.target
