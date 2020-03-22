@@ -1,0 +1,9 @@
+[Unit]
+Description=Create DNS demon
+
+[Service]
+Type=idle
+ExecStart=/home/sergey/HOMEWORK/Hometask3/checkclaudflore.sh
+
+[Install]
+WantedBy=multi-user.target
