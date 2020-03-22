@@ -1,0 +1,10 @@
+[Unit]
+Description=Add CloudFlare DNS
+
+[Service]
+ExecStart=bash -c /path/to/register.sh
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
