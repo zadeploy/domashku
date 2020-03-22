@@ -1,0 +1,12 @@
+[Unit]
+Description=Register raspberry pi in Cloudflare dynamic DNS
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=root
+ExecStart=./root/add_dns.sh && ./root/register_pi_name.sh smirnov.lab.zadeploy.com
+
+[Install]
+WantedBy=multi-user.target 
