@@ -8,7 +8,7 @@ IP2=`dig @1.1.1.1 chance.ns.cloudflare.com +short`
 
 for i in $DNS1 $DNS2
 do
-        grep -o $i /etc/resolv.conf > /dev/null
+        grep -o $i /etc/resolv.conf >> /dev/null
         if [ $? -eq 0 ]; then
                 if [ $i == $DNS1 ]; then
                         if [ `grep $i /etc/resolv.conf | cut -d" " -f2` == $IP1 ]; then
