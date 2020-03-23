@@ -1,0 +1,11 @@
+#!/bin/bash
+TEST=$(cat /etc/resolv.conf | grep arya.ns.cloudflare.com) 
+if [ -z TEST ]
+  then echo "arya.ns.cloudflare.com 173.245.58.70" >> /etc/resolv.conf
+  else echo "arya already added"
+fi
+TEST=$(cat /etc/resolv.conf | grep chance.ns.cloudflare.com)
+if [ -z TEST ]
+  then echo "chance.ns.cloudflare.com  162.159.44.33" >> /etc/resolv.conf
+  else echo "chance already added"
+fi
