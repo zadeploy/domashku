@@ -15,20 +15,23 @@ do
                                 echo "$DNS1 is OK"
                         else
                                 sed -i 's/'"$DNS1"'.*/'"$DNS1 $IP1"'/g' /etc/resolv.conf
+                                echo "$DNS1 updated with $IP1"
                         fi
                 else
                         if [ `grep $i /etc/resolv.conf | cut -d" " -f2` == $IP2 ]; then
                                 echo "$DNS2 is OK"
                         else
                                 sed -i 's/'"$DNS2"'.*/'"$DNS2 $IP2"'/g' /etc/resolv.conf
+                                echo "$DNS2 updated with $IP2"  
                         fi
                 fi
         else
                 if [ $i == $DNS1 ]; then
                         echo -e "$DNS1 $IP1" >> /etc/resolv.conf
+                        echo "$DNS1 with $IP1 added"
                 else
                         echo -e "$DNS2 $IP2" >> /etc/resolv.conf
+                        echo "$DNS2 with $IP2 added"
                 fi
         fi
 done
-                
