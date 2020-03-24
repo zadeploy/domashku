@@ -1,0 +1,35 @@
+part 1
+
+wget http://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2017/Qtr2/log20170630.zip
+unzip ./log20170630.zip 
+chown nexus log20170630.csv
+chmod +x random_picker.sh 
+sudo ./random_picker.sh
+cd /
+sudo find -name log20170630.csv
+mv /usr/lib/python3/dist-packages/orca/scripts/toolkits/Chromium/log20170630.csv /home/nexus/zadeploy/homework1/log20170630
+cat log20170630.csv | grep -c error
+tail -n500 log20170630.csv | grep -c error
+grep '2017-06-30,14:00' log20170630.csv | grep -n 'index.htm'
+grep '2017-06-30,17:' log20170630.csv | grep -c 'index.htm'
+cat log20170630.csv | cut -d, -f1 | sort | uniq -c | sort -nr
+cat log20170630.csv | cut -d, -f1 | grep '13.94.212.jdf' | uniq -c
+
+part 2
+
+sed -i 's/^adm.*/&,ubuntu/g' /etc/group
+sed -i 's/^root.*/&,ubuntu/g' /etc/group
+sudo sed -i 's/Minsk/Berlin/' /etc/timezone
+sudo timedatectl set-timezone Europe/Minsk
+
+part 3
+
+strace ls ./
+touch log20170630.csv
+strace ./random_picker.sh 2>&1 | grep -c 'mv'
+
+
+
+
+
+
