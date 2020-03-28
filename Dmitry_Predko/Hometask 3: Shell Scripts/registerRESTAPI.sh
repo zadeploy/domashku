@@ -25,10 +25,11 @@
 #       -H "Authorization: Bearer gqAEvi3cCcEmWtsyjAVu_VFE8kfy58TYNHQPatd5"\
 #       -H "Content-Type: application/json" `
 
-
 IP=`dig @arya.ns.cloudflare.com $HOSTNAME.lab.zadeploy.com +short`
 LOCIP=`hostname -i | cut -d' ' -f1`
-ID=
+ID=$(curl -X GET "https://api.cloudflare.com/client/v4/zones/4f70d62b382c30c7f83942a758ed9eac/dns_records?type=A&name=$HOSTNAME.lab.zadeploy.com" \
+       -H "Authorization: Bearer gqAEvi3cCcEmWtsyjAVu_VFE8kfy58TYNHQPatd5"\
+       -H "Content-Type: application/json" | grep -Po '"id":".*?[^\\]"' |  sed -e 's/.*"\(.*\)".*/\1/')
 
 if [ $? -eq 0 ]; then
         echo "The record $HOSTNAME.lab.zadeploy.com already exists with ip = $IP "
@@ -39,12 +40,11 @@ if [ $? -eq 0 ]; then
                 -H "Authorization: Bearer gqAEvi3cCcEmWtsyjAVu_VFE8kfy58TYNHQPatd5"\
                 -H "Content-Type: application/json" \
                 --data '{"type":"A","name":"'"$HOSTNAME"'.lab.zadeploy.com","content":"'"$LOCIP"'","ttl":120,"proxied":false}'
-        fi;
+fi;
 else
-        `curl -X POST "https://api.cloudflare.com/client/v4/zones/4f70d62b382c30c7f83942a758ed9eac/dns_records" \
+        curl -X POST "https://api.cloudflare.com/client/v4/zones/4f70d62b382c30c7f83942a758ed9eac/dns_records" \
                 -H "Authorization: Bearer gqAEvi3cCcEmWtsyjAVu_VFE8kfy58TYNHQPatd5"\
                 -H "Content-Type: application/json" \
-                --data '{"type":"A","name":"'"$HOSTNAME"'.lab.zadeploy.com","content":"'"$LOCIP"'","ttl":120,"priority":10,"proxied":false}'`
+                --data '{"type":"A","name":"'"$HOSTNAME"'.lab.zadeploy.com","content":"'"$LOCIP"'","ttl":120,"priority":10,"proxied":false}'
 fi;
-
 
