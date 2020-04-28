@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  loadbalanser:
+    image: nginx
+    volumes:
+      - "./loadbalansernginxconf/nginx.conf:/etc/nginx/nginx.conf"
+    ports:
+      - "1112:80"
+
+  firstnginx:
+    image: nginx
+    volumes:
+      - "./first/:/usr/share/nginx/html"
+
+  secondnginx:
+    image: nginx
+    volumes:
+      - "./second/:/usr/share/nginx/html"
