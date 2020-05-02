@@ -1,0 +1,29 @@
+version: '2'
+
+services:
+    #cv 1
+    cv1:
+        build: 
+            context: cv
+            args:
+                name: "cv1"
+                number: 1
+            dockerfile: Dockerfile
+        ports:
+            - "8081:80"
+    #cv 2
+    cv2:
+        build: 
+            context: cv
+            args:
+                name: "cv2"
+                number: 2
+            dockerfile: Dockerfile
+        ports:
+            - "8082:80"
+    #load balancer
+    proxy:
+        build:
+            context: lb
+        ports:
+            - "443:443"
