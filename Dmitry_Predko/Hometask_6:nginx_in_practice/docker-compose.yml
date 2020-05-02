@@ -1,0 +1,51 @@
+version: '3'
+services:
+    load-balancer:
+      image: nginx:latest
+      container_name: load-balancer
+      volumes:
+         - ./load-balancer-nginx.conf:/etc/nginx/nginx.conf:ro
+         - ./ssl:/etc/nginx/ssl:ro
+      restart: always
+      depends_on:
+         - nginx_node1
+         - nginx_node2
+      ports:
+         - '80:80'
+         - '443:443'
+      networks:
+         - backend
+
+    nginx_node1:
+      image: nginx:latest
+      container_name: nginx_node1
+      volumes: 
+         - ./site:/var/www/html
+         - ./nginx.conf:/etc/nginx/nginx.conf:ro
+         - ./htpasswd:/etc/nginx/conf/htpasswd:ro
+         #- ./ssl:/etc/nginx/ssl:ro  
+      restart: always     
+      expose:
+         - '80'
+         - '443'
+      networks:
+         - backend  
+
+    nginx_node2:
+      image: nginx:latest
+      container_name: nginx_node2
+      volumes:
+         - ./site:/var/www/html
+         - ./nginx.conf:/etc/nginx/nginx.conf:ro
+         - ./htpasswd:/etc/nginx/conf/htpasswd:ro
+         #- ./ssl:/etc/nginx/ssl:ro
+      restart: always
+      expose:
+         - '80'
+         - '443'
+      networks:
+         - backend
+
+networks:
+  backend:
+    driver: bridge
