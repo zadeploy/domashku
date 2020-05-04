@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  loadbalanser:
+  loadbalancer:
     image: nginx
     restart: always
     logging:
@@ -11,7 +11,7 @@ services:
       - firstnginx
       - secondnginx
     volumes:
-      - "./loadbalansernginxconf/nginx.conf:/etc/nginx/nginx.conf"
+      - "./loadbalanсernginxconf/nginx.conf:/etc/nginx/nginx.conf"
     ports:
       - "1113:80"
 
@@ -36,7 +36,4 @@ services:
     logging:
       driver: journald
       options: 
-          tag: project1
-
-        
-        
+          tag: project1        
