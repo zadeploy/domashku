@@ -6,7 +6,7 @@ services:
     logging:
       driver: journald
       options: 
-          tag: hometask_7
+          tag: hometask_7_loadbalancer
     depends_on: 
       - firstnginx
       - secondnginx
@@ -21,7 +21,7 @@ services:
     logging:
       driver: journald
       options: 
-          tag: hometask_7
+          tag: hometask_7_firstnginx
 
   secondnginx:
     image: nginx
@@ -36,4 +36,4 @@ services:
     logging:
       driver: journald
       options: 
-          tag: hometask_7        
+          tag: hometask_7_secondnginx       
