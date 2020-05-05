@@ -1,0 +1,65 @@
+version: '3.7'
+
+x-healthcheck: &healthcheck
+    interval: 2m
+    timeout: 5s
+    retries: 3
+    start_period: 20s
+
+services:
+    #cv 1
+    cv1:
+        build: 
+            context: cv
+            args:
+                name: "cv1"
+                number: 1
+            dockerfile: Dockerfile
+        restart: always
+        volumes:
+            - ./cv/cv:/var/www/smirnovcv.com
+        healthcheck:
+            << : *healthcheck
+            test: ["CMD", "curl", "-f", "http://localhost:8081", "||", "exit 1"]
+        logging:
+            driver: journald
+            options:
+                tag: cv1_logs
+        ports:
+            - "8081:80"
+    #cv 2
+    cv2:
+        build: 
+            context: cv
+            args:
+                name: "cv2"
+                number: 2
+            dockerfile: Dockerfile
+        restart: always
+        volumes:
+            - ./cv/cv:/var/www/smirnovcv.com
+        healthcheck:
+            << : *healthcheck
+            test: ["CMD", "curl", "-f", "http://localhost:8082", "||", "exit 1"]
+        logging:
+            driver: journald
+            options:
+                tag: cv2_logs
+        ports:
+            - "8082:80"
+    #load balancer
+    proxy:
+        build:
+            context: lb
+        restart: always
+        volumes:
+            - ./lb/lb.conf:/etc/nginx/conf.d/lb.conf
+        healthcheck:
+            << : *healthcheck
+            test: ["CMD", "curl", "-f", "https://localhost:443", "||", "exit 1"]
+        logging:
+            driver: journald
+            options:
+                tag: lb_logs
+        ports:
+            - "443:443"
