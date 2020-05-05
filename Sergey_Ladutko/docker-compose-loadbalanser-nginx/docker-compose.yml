@@ -1,0 +1,39 @@
+version: '3.3'
+services:
+  loadbalancer:
+    image: nginx
+    restart: always
+    logging:
+      driver: journald
+      options: 
+          tag: hometask_7_loadbalancer
+    depends_on: 
+      - firstnginx
+      - secondnginx
+    volumes:
+      - "./loadbalanсernginxconf/nginx.conf:/etc/nginx/nginx.conf"
+    ports:
+      - "1113:80"
+
+  firstnginx:
+    build: ./first
+    restart: always
+    logging:
+      driver: journald
+      options: 
+          tag: hometask_7_firstnginx
+
+  secondnginx:
+    image: nginx
+    restart: always
+    volumes:
+      - "./second/:/usr/share/nginx/html"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    logging:
+      driver: journald
+      options: 
+          tag: hometask_7_secondnginx       
