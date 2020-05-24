@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  shark:
+    build: .
+    # image: shark:1
+    environment:
+      - MONGO_USERNAME=test
+      - MONGO_PASSWORD=test
+      - MONGO_HOSTNAME=mongodb
+      - MONGO_PORT=27017
+      - MONGO_DB=test
+    # command: ./wait-for.sh mongodb:27017 -- node ./app.js
+    ports:
+      - "1234:8080"
+    restart: always
+
+  mongodb:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=test
+    logging:
+      driver: none
+    ports:
+      - "26977:27017"
+    volumes:
+      - mongodb:/data/db
+    command: --wiredTigerCacheSizeGB 6
+    restart: always
+
+volumes:
+  mongodb:
