@@ -9,6 +9,8 @@ jobs:
   deploy:
     name: test snyk
     runs-on: ubuntu-18.04
+    env:
+      workdir-directory: ./SergeyLadutko/Hometask_8/
     steps:
     # - uses: actions/checkout@master
     # - name: Run Snyk to check for vulnerabilities
@@ -21,6 +23,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         name: sergeyladutko/kuber
+        workdir-directory: ${{ env.workdir-directory }}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         # workdir: ./SergeyLadutko/Hometask_8/
