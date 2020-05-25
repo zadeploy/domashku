@@ -25,11 +25,6 @@ jobs:
     #   with:
     #     command: test ./SergeyLadutko/Hometask_8/
 
-    - name: Bash for GitHub Actions
-      uses: jcblw/bash@1.0.0
-      run: pwd
-      run: ls
-
     # - name: Publish to Registry
     #   uses: docker/build-push-action@v1
     #   with:
