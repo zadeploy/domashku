@@ -10,11 +10,11 @@ jobs:
     name: deploy to cluster
     runs-on: ubuntu-18.04
     steps:
-    - name: Snyk
-      uses: snyk/actions@0.1.1
+    - uses: actions/checkout@master
+    - name: Run Snyk to check for vulnerabilities
+      uses: snyk/actions/node@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        # Which Snyk command to run, defaults to test
         command: snyk test ./SergeyLadutko/Hometask_8/
-#         # Additional arguments to pass to Snyk
-#         args: # optional
 
