@@ -29,19 +29,20 @@ jobs:
       run: docker build -t sergeyladutko/kuber:latest ./SergeyLadutko/Hometask_8/ 
     - name: Push the tagged Docker image
       run: docker push sergeyladutko/kuber:latest
-    # - name: Build the latest Docker image
-    #   run: docker build ./SergeyLadutko/Hometask_8/ --file Dockerfile --tag sergeyladutko/kuber:latest
-    # - name: Push the latest Docker image
-    #   run: docker push sergeyladutko/kuber:latest
-    # - name: Publish to Registry
-    #   uses: docker/build-push-action@v1
-    #   # run: ls -la && pwd
+
+
+    - uses: actions/checkout@master
+    - name: deploy to cluster
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: get pod
+    # - name: verify deployment
+    #   uses: steebchen/kubectl@master
+    #   env:
+    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+    #     KUBECTL_VERSION: "1.15"
     #   with:
-    #     repository: sergeyladutko/kuber
-    #     username: ${{ secrets.DOCKER_USERNAME }}
-    #     password: ${{ secrets.DOCKER_PASSWORD }}
-    #     tags: latest
-    #     DOCKERFILE: SergeyLadutko/Hometask_8/Dockerfile
-    #     path: SergeyLadutko/Hometask_8/
-    #     dockerfile: Dockerfile
+    #     args: '"rollout status deployment/my-app"'
 
