@@ -45,8 +45,10 @@ jobs:
         # repository: sergeyladutko/kuber
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        IMAGE_NAME: "USERNAME/IMAGE_NAME"
         TAG_NAME: "v0.0.1"
-        DOCKERFILE: SergeyLadutko/Hometask_8/Dockerfile
+        LATEST: "true"
+        DOCKERFILE: "SergeyLadutko/Hometask_8/Dockerfile"
         # path: SergeyLadutko/Hometask_8/
         # dockerfile: Dockerfile
 
