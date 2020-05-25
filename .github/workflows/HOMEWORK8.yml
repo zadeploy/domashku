@@ -17,13 +17,12 @@ jobs:
     #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     #   with:
     #     command: test ./SergeyLadutko/Hometask_8/
-
     - name: Publish to Registry
       uses: elgohr/Publish-Docker-Github-Action@master
       with:
         name: sergeyladutko/kuber
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        dockerfile: ./SergeyLadutko/Hometask_8/Dockerfile
+        # dockerfile: ./SergeyLadutko/Hometask_8/Dockerfile
 
 
