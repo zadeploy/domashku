@@ -13,7 +13,7 @@ jobs:
 
     - name: Bash for GitHub Actions
     - uses: actions/checkout@v1
-      run: pwd
+      run: ls
     # env:
     #   workdir-directory: ./SergeyLadutko/Hometask_8/
     # steps:
