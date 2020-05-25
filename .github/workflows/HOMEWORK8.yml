@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
 
-    - name: Checkout source code
-      run: cd .. && ls -la && pwd
+    # - name: Checkout source code
+    #   run: cd .. && ls -la && pwd
     # env:
     #   workdir-directory: ./SergeyLadutko/Hometask_8/
     # steps:
@@ -23,12 +23,13 @@ jobs:
     #   with:
     #     command: test ./SergeyLadutko/Hometask_8/
 
-    # - name: Publish to Registry
-    #   uses: docker/build-push-action@v1
-    #   with:
-    #     repository: sergeyladutko/kuber
-    #     username: ${{ secrets.DOCKER_USERNAME }}
-    #     password: ${{ secrets.DOCKER_PASSWORD }}
-    #     tags: latest
-    #     path: ./SergeyLadutko/Hometask_8/Dockerfile
+    - name: Publish to Registry
+      uses: docker/build-push-action@v1
+      run: ls -la && pwd
+      with:
+        repository: sergeyladutko/kuber
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: latest
+        path: ./SergeyLadutko/Hometask_8/Dockerfile
 
