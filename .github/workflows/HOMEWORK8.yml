@@ -21,7 +21,7 @@ jobs:
     #     command: test ./SergeyLadutko/Hometask_8/
 
     - name: Checkout
-      uses: actions/checkout@v1
+    - uses: actions/checkout@v1
       run: pwd
       run: ls
 
