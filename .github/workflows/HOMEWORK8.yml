@@ -11,7 +11,7 @@ jobs:
     steps:
 
     - name: Checkout source code
-      run: ls && pwd
+      run: ls -la && pwd
     # env:
     #   workdir-directory: ./SergeyLadutko/Hometask_8/
     # steps:
