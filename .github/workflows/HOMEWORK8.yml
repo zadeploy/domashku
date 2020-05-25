@@ -11,7 +11,6 @@ jobs:
     steps:
 
     - name: Checkout source code
-    - uses: actions/checkout@v1
       run: ls
     # env:
     #   workdir-directory: ./SergeyLadutko/Hometask_8/
