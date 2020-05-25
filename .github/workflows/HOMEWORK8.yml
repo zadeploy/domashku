@@ -33,5 +33,5 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
         # run: pwd
         tags: latest
-        path: ./../SergeyLadutko/Hometask_8/
+        path: ./../SergeyLadutko/Hometask_8/Dockerfile
 
