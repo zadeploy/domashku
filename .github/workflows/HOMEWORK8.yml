@@ -16,5 +16,5 @@ jobs:
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
-        command: snyk test ./SergeyLadutko/Hometask_8/
+        command: snyk ./SergeyLadutko/Hometask_8/
 
