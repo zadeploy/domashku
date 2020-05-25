@@ -20,9 +20,9 @@ jobs:
     #   with:
     #     command: test ./SergeyLadutko/Hometask_8/
 
-    # - name: Checkout
-    #   uses: actions/checkout@v1
-    #   run: pwd
+    - name: Checkout
+      uses: actions/checkout@v1
+      run: pwd
 
     - name: Publish to Registry
       uses: docker/build-push-action@v1
