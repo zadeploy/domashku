@@ -22,33 +22,29 @@ jobs:
     #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     #   with:
     #     command: test ./SergeyLadutko/Hometask_8/
-
+    - uses: actions/checkout@v1
+    - name: Login to DockerHub Registry
+      run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+    - name: Get the version
+      id: vars
+      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
+    - name: Build the tagged Docker image
+      run: docker build ./SergeyLadutko/Hometask_8/ --file Dockerfile --tag sergeyladutko/kuber:${{steps.vars.outputs.tag}}
+    - name: Push the tagged Docker image
+      run: docker push sergeyladutko/kuber:${{steps.vars.outputs.tag}}
+    - name: Build the latest Docker image
+      run: docker build ./SergeyLadutko/Hometask_8/ --file Dockerfile --tag sergeyladutko/kuber:latest
+    - name: Push the latest Docker image
+      run: docker push sergeyladutko/kuber::latest
     # - name: Publish to Registry
-    #   uses: opspresso/action-docker@maste
+    #   uses: docker/build-push-action@v1
     #   # run: ls -la && pwd
     #   with:
-    #     IMAGE_NAME: "USERNAME/IMAGE_NAME"
-    #     # repository: sergeyladutko/kuber
+    #     repository: sergeyladutko/kuber
     #     username: ${{ secrets.DOCKER_USERNAME }}
     #     password: ${{ secrets.DOCKER_PASSWORD }}
     #     tags: latest
     #     DOCKERFILE: SergeyLadutko/Hometask_8/Dockerfile
-    #     # path: SergeyLadutko/Hometask_8/
-    #     # dockerfile: Dockerfile
-
-
-    - name: Publish to Registry
-      uses: opspresso/action-docker@maste
-      # run: ls -la && pwd
-      with:
-        IMAGE_NAME: "USERNAME/IMAGE_NAME"
-        # repository: sergeyladutko/kuber
-        USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        IMAGE_NAME: "USERNAME/IMAGE_NAME"
-        TAG_NAME: "v0.0.1"
-        LATEST: "true"
-        DOCKERFILE: "SergeyLadutko/Hometask_8/Dockerfile"
-        # path: SergeyLadutko/Hometask_8/
-        # dockerfile: Dockerfile
+    #     path: SergeyLadutko/Hometask_8/
+    #     dockerfile: Dockerfile
 
