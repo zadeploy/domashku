@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-18.04
     # env:
     #   workdir-directory: ./SergeyLadutko/Hometask_8/
-    # steps:
+    steps:
     # - uses: actions/checkout@master
     # - name: Run Snyk to check for vulnerabilities
     #   uses: snyk/actions/node@master
