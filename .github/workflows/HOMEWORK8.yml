@@ -29,7 +29,7 @@ jobs:
       id: vars
       run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
     - name: Build the tagged Docker image
-      run: docker build ./SergeyLadutko/Hometask_8/ --file Dockerfile --tag sergeyladutko/kuber:${{steps.vars.outputs.tag}}
+      run: docker build -t sergeyladutko/kuber:${{steps.vars.outputs.tag}} ./SergeyLadutko/Hometask_8/ 
     - name: Push the tagged Docker image
       run: docker push sergeyladutko/kuber:${{steps.vars.outputs.tag}}
     - name: Build the latest Docker image
