@@ -9,9 +9,9 @@ jobs:
   deploy:
     name: test snyk
     runs-on: ubuntu-18.04
-    env:
-      workdir-directory: ./SergeyLadutko/Hometask_8/
-    steps:
+    # env:
+    #   workdir-directory: ./SergeyLadutko/Hometask_8/
+    # steps:
     # - uses: actions/checkout@master
     # - name: Run Snyk to check for vulnerabilities
     #   uses: snyk/actions/node@master
@@ -19,18 +19,18 @@ jobs:
     #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
     #   with:
     #     command: test ./SergeyLadutko/Hometask_8/
-    - name: Checkout
-      uses: actions/checkout@v1
-      run: pwd
 
-    # - name: Publish to Registry
-    #   uses: elgohr/Publish-Docker-Github-Action@master
-    #   with:
-    #     name: sergeyladutko/kuber
-    #     # workdir-directory: ${{ env.workdir-directory }}
-    #     username: ${{ secrets.DOCKER_USERNAME }}
-    #     password: ${{ secrets.DOCKER_PASSWORD }}
-        # workdir: ./SergeyLadutko/Hometask_8/
-        # dockerfile: Dockerfile
+    # - name: Checkout
+    #   uses: actions/checkout@v1
+    #   run: pwd
 
+    - name: Publish to Registry
+      uses: docker/build-push-action@v1
+      with:
+        repository: sergeyladutko/kuber
+        # workdir-directory: ${{ env.workdir-directory }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: latest
+        dockerfile: ./SergeyLadutko/Hometask_8/Dockerfile
 
