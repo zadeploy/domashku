@@ -1,0 +1,20 @@
+
+name: Deploy in kubernetes
+
+on:
+  push:
+    branches: [ Hometask_8 ]
+    
+jobs:
+  deploy:
+    name: deploy to cluster
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Snyk
+      uses: snyk/actions@0.1.1
+      with:
+        # Which Snyk command to run, defaults to test
+        command: snyk test ./SergeyLadutko/Hometask_8/
+#         # Additional arguments to pass to Snyk
+#         args: # optional
+
