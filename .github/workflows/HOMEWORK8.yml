@@ -25,11 +25,12 @@ jobs:
 
     - name: Publish to Registry
       uses: docker/build-push-action@v1
-      run: ls -la && pwd
+      # run: ls -la && pwd
       with:
         repository: sergeyladutko/kuber
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         tags: latest
-        path: ./SergeyLadutko/Hometask_8/Dockerfile
+        path: SergeyLadutko/Hometask_8/
+        dockerfile: Dockerfile
 
