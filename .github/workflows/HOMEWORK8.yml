@@ -9,9 +9,14 @@ jobs:
   deploy:
     name: test snyk
     runs-on: ubuntu-18.04
+    steps:
+
+    - name: Bash for GitHub Actions
+    - uses: actions/checkout@v1
+      run: pwd
     # env:
     #   workdir-directory: ./SergeyLadutko/Hometask_8/
-    steps:
+    # steps:
     # - uses: actions/checkout@master
     # - name: Run Snyk to check for vulnerabilities
     #   uses: snyk/actions/node@master
@@ -20,17 +25,17 @@ jobs:
     #   with:
     #     command: test ./SergeyLadutko/Hometask_8/
 
-    # - name: Bash for GitHub Actions
-    #   uses: jcblw/bash@1.0.0
-    #   run: pwd
-    #   run: ls
+    - name: Bash for GitHub Actions
+      uses: jcblw/bash@1.0.0
+      run: pwd
+      run: ls
 
-    - name: Publish to Registry
-      uses: docker/build-push-action@v1
-      with:
-        repository: sergeyladutko/kuber
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: latest
-        path: ./SergeyLadutko/Hometask_8/Dockerfile
+    # - name: Publish to Registry
+    #   uses: docker/build-push-action@v1
+    #   with:
+    #     repository: sergeyladutko/kuber
+    #     username: ${{ secrets.DOCKER_USERNAME }}
+    #     password: ${{ secrets.DOCKER_PASSWORD }}
+    #     tags: latest
+    #     path: ./SergeyLadutko/Hometask_8/Dockerfile
 
