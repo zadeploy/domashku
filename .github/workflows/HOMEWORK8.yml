@@ -23,6 +23,6 @@ jobs:
         name: sergeyladutko/kuber
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        context: ./SergeyLadutko/Hometask_8/Dockerfile
+        context: ./SergeyLadutko/Hometask_8/
 
 
