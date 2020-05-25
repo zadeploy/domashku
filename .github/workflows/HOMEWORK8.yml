@@ -32,5 +32,5 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         tags: latest
-        dockerfile: /SergeyLadutko/Hometask_8/Dockerfile
+        dockerfile: ./../SergeyLadutko/Hometask_8/Dockerfile
 
