@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
 
-    - name: Bash for GitHub Actions
+    - name: Checkout source code
     - uses: actions/checkout@v1
       run: ls
     # env:
