@@ -25,12 +25,13 @@ jobs:
         TAG=`echo $GITHUB_REF| sed 's/\//\ /g' | awk '{print $3}'`
         echo $TAG
         sed -i  "s|latest|"$TAG"|g" SergeyLadutko/Hometask_8/kubernetes/deployment.yml
+        sed -i  "s|TEST|"$GITHUB_SHA"|g" SergeyLadutko/Hometask_8/kubernetes/deployment.yml
         cat ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml
     - name: Build the tagged Docker image
       run: docker build -t sergeyladutko/kuber:TAG ./SergeyLadutko/Hometask_8/
 
     - name: Push the tagged Docker image
-      run: docker push sergeyladutko/kuber:latest
+      run: docker push sergeyladutko/kuber:TAG
 
     - uses: actions/checkout@master
     - name: deploy to cluster

@@ -40,6 +40,9 @@ spec:
             name: shark-config
         - secretRef:
             name: mysecret
+        env:
+        - name: RELOADENV
+          value: TEST
         image: sergeyladutko/kuber:latest
         imagePullPolicy: Always
         ports:
