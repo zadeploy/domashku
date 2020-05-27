@@ -52,5 +52,6 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
         with:
           args: |
+            kubectl apply -f ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml
             helm upgrade test-deploy  --install  ./SergeyLadutko/Hometask_8/helm/test-helm/ --set "TEST=test125"
  
