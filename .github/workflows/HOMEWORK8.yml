@@ -33,13 +33,13 @@ jobs:
     # - name: Push the tagged Docker image
     #   run: docker push sergeyladutko/kuber:TAG
 
-    # - uses: actions/checkout@master
-    # - name: deploy to cluster
-    #   uses: steebchen/kubectl@master
-    #   env:
-    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-    #   with:
-    #     args: get pod
+    - uses: actions/checkout@master
+    - name: deploy to cluster
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      with:
+        args: get pod
     - name: verify deployment
       uses: steebchen/kubectl@master
       env:
