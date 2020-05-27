@@ -6,7 +6,7 @@ on:
     branches: [ Hometask_8 ]
     
 jobs:
-  security tes:
+  security_tes:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
@@ -17,7 +17,7 @@ jobs:
       with:
         command: test ./SergeyLadutko/Hometask_8/
 
-  build and push:
+  build_and_push:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
@@ -35,7 +35,7 @@ jobs:
     - name: Push the tagged Docker image
       run: docker push sergeyladutko/kuber:TAG
 
-  deploy kubernetes:
+  deploy_kubernetes:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
