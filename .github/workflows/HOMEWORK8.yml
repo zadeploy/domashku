@@ -37,15 +37,15 @@ jobs:
     - name: deploy to cluster
       uses: steebchen/kubectl@master
       env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
       with:
         args: get pod
-        
+
     - uses: actions/checkout@master
     - name: verify deployment
       uses: steebchen/kubectl@master
       env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
         KUBECTL_VERSION: "1.15"
       with:
         args: apply -f ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml
