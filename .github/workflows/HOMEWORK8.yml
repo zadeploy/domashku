@@ -32,18 +32,26 @@ jobs:
 
     # - name: Push the tagged Docker image
     #   run: docker push sergeyladutko/kuber:TAG
-    - uses: actions/checkout@master
-    - name: deploy to cluster
-      uses: steebchen/kubectl@master
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-      with:
-        args: get pod
-    - name: verify deployment
-      uses: steebchen/kubectl@master
-      env:
-        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        KUBECTL_VERSION: "1.15"
-      with:
-        args: apply -f ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml
- 
+    # - uses: actions/checkout@master
+    # - name: deploy to cluster
+    #   uses: steebchen/kubectl@master
+    #   env:
+    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+    #   with:
+    #     args: get pod
+    # - name: verify deployment
+    #   uses: steebchen/kubectl@master
+    #   env:
+    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+    #     KUBECTL_VERSION: "1.15"
+    #   with:
+    #     args: apply -f ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml
+
+      - uses: actions/checkout@v2
+      - name: Run Kubernetes tools
+        uses: stefanprodan/kube-tools@v1
+        with:
+          kubectl: 1.18.2
+        command: |
+          - export KUBECONFIG= ${{ secrets.KUBE_CONFIG_DATA }}
+          - kubectl get pod 
