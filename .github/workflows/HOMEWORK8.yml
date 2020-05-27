@@ -53,5 +53,5 @@ jobs:
         with:
           kubectl: 1.18.2
         command: |
-          - export KUBECONFIG= ${{ secrets.KUBE_CONFIG_DATA }}
-          - kubectl get pod 
+          export KUBECONFIG= ${{ secrets.KUBE_CONFIG_DATA }}
+          kubectl get pod 
