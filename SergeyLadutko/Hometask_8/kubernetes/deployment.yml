@@ -40,7 +40,7 @@ spec:
             name: shark-config
         - secretRef:
             name: mysecret
-        image: sergeyladutko/kuber:v2
+        image: sergeyladutko/kuber:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
