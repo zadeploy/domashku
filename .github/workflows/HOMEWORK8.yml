@@ -30,7 +30,6 @@ jobs:
     # - name: Push the tagged Docker image
     #   run: docker push sergeyladutko/kuber:latest
 
-################################
     # - uses: actions/checkout@master
     # - name: deploy to cluster
     #   uses: steebchen/kubectl@master
@@ -38,21 +37,14 @@ jobs:
     #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
     #   with:
     #     args: get pod
-    # - name: verify deployment
-    #   uses: steebchen/kubectl@master
-    #   env:
-    #     KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-    #     KUBECTL_VERSION: "1.15"
-    #   with:
-    #     args: apply -f ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml
-##################
-      - name: deploy postgres to cluster
-        uses: wahyd4/kubectl-helm-action@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        with:
-          args: |
-            ls -la && pwd
-            kubectl apply -f ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml
-            helm upgrade test-deploy  --install  ./SergeyLadutko/Hometask_8/helm/test-helm/ --set "TEST=test125"
+    - name: verify deployment
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+        KUBECTL_VERSION: "1.15"
+      with:
+        args: |
+         apply -f ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml
+         get pod
+
  
