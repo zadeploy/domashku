@@ -17,27 +17,26 @@ jobs:
     #   with:
     #     command: test ./SergeyLadutko/Hometask_8/
 
-    - uses: actions/checkout@v1
-    - name: Login to DockerHub Registry
-      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-    - name: tag
-      run: |
-        TAG=`echo $GITHUB_REF| sed 's/\//\ /g' | awk '{print $3}'`
-        echo $TAG
-        sed -i  "s|latest|"$TAG"|g" SergeyLadutko/Hometask_8/kubernetes/deployment.yml
-        sed -i  "s|TEST|"$GITHUB_SHA"|g" SergeyLadutko/Hometask_8/kubernetes/deployment.yml
-        cat ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml
-    - name: Build the tagged Docker image
-      run: docker build -t sergeyladutko/kuber:TAG ./SergeyLadutko/Hometask_8/
+    # - uses: actions/checkout@v1
+    # - name: Login to DockerHub Registry
+    #   run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+    # - name: tag
+    #   run: |
+    #     TAG=`echo $GITHUB_REF| sed 's/\//\ /g' | awk '{print $3}'`
+    #     echo $TAG
+    #     sed -i  "s|latest|"$TAG"|g" SergeyLadutko/Hometask_8/kubernetes/deployment.yml
+    #     sed -i  "s|TEST|"$GITHUB_SHA"|g" SergeyLadutko/Hometask_8/kubernetes/deployment.yml
+    #     cat ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml
+    # - name: Build the tagged Docker image
+    #   run: docker build -t sergeyladutko/kuber:TAG ./SergeyLadutko/Hometask_8/
 
-    - name: Push the tagged Docker image
-      run: docker push sergeyladutko/kuber:TAG
+    # - name: Push the tagged Docker image
+    #   run: docker push sergeyladutko/kuber:TAG
 
-    - name: verify deployment
-      uses: steebchen/kubectl@master
+    - uses: actions-hub/kubectl@master
       env:
-        kubeconfig: ${{ secrets.KUBE_CONFIG }}
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
       with:
-        args: apply -f ./SergeyLadutko/Hometask_8/kubernetes/deployment.yml 
+        args: get pods
 
  
